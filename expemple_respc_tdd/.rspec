@@ -1,2 +1,5 @@
 --require spec_helper
 --format documentation
+--tag collection
+# denying test
+--tag ~slow

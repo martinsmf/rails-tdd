@@ -1,6 +1,8 @@
 RSpec::Matchers.define_negated_matcher :an_array_exluding, :include
 
-describe Array.new([1, 2, 3]), "Array" do
+# tag filters, can be used of next away: "NAME:true" or "NAME: 'NAME'" or ":NAME"
+
+describe Array.new([1, 2, 3]), "Array", :collection do
   it "#include" do
     expect(subject).to include 2
     expect(subject).to include(2, 1)
@@ -8,7 +10,7 @@ describe Array.new([1, 2, 3]), "Array" do
 
   it { expect(subject).to an_array_exluding(4) }
 
-  it "#mathc_array" do
+  it "#mathc_array", :slow do
     expect(subject).to match_array([1, 2, 3])
   end
 
