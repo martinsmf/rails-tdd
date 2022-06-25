@@ -1,4 +1,5 @@
 require "rails_helper"
+require_relative "../support/new_customer_form.rb"
 
 RSpec.feature "Customers", type: :feature, js: true do
   # it "Visit index page" do
@@ -12,11 +13,20 @@ RSpec.feature "Customers", type: :feature, js: true do
   #   page.save_and_open_page
   #   expect(page).to have_current_path(customers_path)
   # end
+  let(:new_customer_form) { NewCustomerForm.new }
 
   it "Visit index page" do
     visit(customers_path)
     page.save_screenshot("screenshot.png")
     expect(page).to have_current_path(customers_path)
+  end
+
+  it "Creates a customer - Page object pattern" do
+    new_customer_form.login.visit_page.fill_in_with(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      addres: Faker::Address.street_address,
+    ).submit
   end
 
   it "creates a customer" do
